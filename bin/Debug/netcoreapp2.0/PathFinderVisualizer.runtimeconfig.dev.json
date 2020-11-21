@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\malika\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\malika\\.nuget\\packages"
+    ]
+  }
+}

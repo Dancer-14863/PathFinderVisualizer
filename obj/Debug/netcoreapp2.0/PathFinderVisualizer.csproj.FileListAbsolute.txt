@@ -1,0 +1,12 @@
+C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\bin\Debug\netcoreapp2.0\PathFinderVisualizer.deps.json
+C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\bin\Debug\netcoreapp2.0\PathFinderVisualizer.runtimeconfig.json
+C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\bin\Debug\netcoreapp2.0\PathFinderVisualizer.runtimeconfig.dev.json
+C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\bin\Debug\netcoreapp2.0\PathFinderVisualizer.dll
+C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\bin\Debug\netcoreapp2.0\PathFinderVisualizer.pdb
+C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\obj\Debug\netcoreapp2.0\PathFinderVisualizer.csprojAssemblyReference.cache
+C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\obj\Debug\netcoreapp2.0\PathFinderVisualizer.AssemblyInfoInputs.cache
+C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\obj\Debug\netcoreapp2.0\PathFinderVisualizer.AssemblyInfo.cs
+C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\obj\Debug\netcoreapp2.0\PathFinderVisualizer.csproj.CoreCompileInputs.cache
+C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\obj\Debug\netcoreapp2.0\PathFinderVisualizer.dll
+C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\obj\Debug\netcoreapp2.0\PathFinderVisualizer.pdb
+C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\obj\Debug\netcoreapp2.0\PathFinderVisualizer.genruntimeconfig.cache
