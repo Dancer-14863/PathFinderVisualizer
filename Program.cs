@@ -1,5 +1,4 @@
 using SplashKitSDK;
-using System;
 
 namespace PathFinderVisualizer
 {
@@ -21,27 +20,33 @@ namespace PathFinderVisualizer
                 SplashKit.ProcessEvents();
                 SplashKit.ClearScreen(Color.White);
 
-                if (SplashKit.MouseClicked(MouseButton.LeftButton)) 
+                if (SplashKit.MouseClicked(MouseButton.LeftButton) || SplashKit.MouseDown(MouseButton.LeftButton)) 
                 {
-                    grid.HasBeenClicked(SplashKit.MousePosition(), false);
+                    grid.HasBeenClicked(SplashKit.MousePosition(), MouseButton.LeftButton);
+                } 
+                else if (SplashKit.MouseClicked(MouseButton.RightButton) || SplashKit.MouseDown(MouseButton.RightButton)) 
+                {
+                    grid.HasBeenClicked(SplashKit.MousePosition(), MouseButton.RightButton);
                 } 
                 else if (SplashKit.KeyTyped(KeyCode.SKey))
                 {
-                    Cell clickedCell = grid.HasBeenClicked(SplashKit.MousePosition(), true);
+                    Cell clickedCell = grid.GetTargetCell(SplashKit.MousePosition());
                     if (startingCell is Cell && (startingCell != clickedCell))
                     {
                         startingCell.ForegroudColor = Color.White;
                     }
                     startingCell = clickedCell;
+                    startingCell.ForegroudColor = Color.Purple;
                 }
                 else if (SplashKit.KeyTyped(KeyCode.EKey))
                 {
-                    Cell clickedCell = grid.HasBeenClicked(SplashKit.MousePosition(), true);
+                    Cell clickedCell = grid.GetTargetCell(SplashKit.MousePosition());
                     if (endingCell is Cell && (endingCell != clickedCell))
                     {
                         endingCell.ForegroudColor = Color.White;
                     }
                     endingCell = clickedCell;
+                    endingCell.ForegroudColor = Color.Purple;
                 }
 
                 if (SplashKit.KeyTyped(KeyCode.RKey))

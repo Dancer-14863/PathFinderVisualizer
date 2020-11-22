@@ -97,26 +97,36 @@ namespace PathFinderVisualizer
             }
         }
 
-        public Cell HasBeenClicked(Point2D pt, bool isMainCell)
+        public void HasBeenClicked(Point2D pt, MouseButton clickedButton)
+        {
+            foreach (Cell cell in _grid)
+            {
+                if (cell.IsAt(pt))
+                {
+                    switch (clickedButton)
+                    {
+                        case MouseButton.LeftButton:
+                            cell.Walkable = false;
+                            break;
+                        case MouseButton.RightButton:
+                            cell.Walkable = true;
+                            break;
+                    }
+                }
+            }
+        }
+
+        public Cell GetTargetCell(Point2D pt)
         {
             Cell clickedCell = null;
             foreach (Cell cell in _grid)
             {
-                if (isMainCell && cell.IsAt(pt))
+                if (cell.IsAt(pt))
                 {
-                    if (cell.IsAt(pt))
-                    {
-                        cell.ForegroudColor = Color.Purple;
-                        clickedCell = cell;
-                    }
-                }
-                else if (cell.IsAt(pt))
-                {
-                    cell.ToggleWalkable();
                     clickedCell = cell;
+                    break;
                 }
             }
-
             return clickedCell;
         }
 

@@ -16,6 +16,7 @@ namespace PathFinderVisualizer
             List<Cell> openSet = new List<Cell>();
             IDictionary<Cell, double> distance = new Dictionary<Cell, double>();
             IDictionary<Cell, Cell> cameFrom = new Dictionary<Cell, Cell>();
+            Cell firstCell = cells[0, 0];
 
             foreach (Cell cell in cells)
             {
@@ -23,6 +24,7 @@ namespace PathFinderVisualizer
                 openSet.Add(cell);
             }
 
+            bool isDeadEnd = false;
             distance[startingCell] = 0;
             while (openSet.Count > 0)
             {
@@ -44,6 +46,12 @@ namespace PathFinderVisualizer
                     break;
                 }
 
+                if (isDeadEnd && current == firstCell)
+                {
+                    break;
+                }
+
+                isDeadEnd = true;
                 foreach(Cell neighbor in current.NeighboringCells)
                 {
                     if (!neighbor.Walkable || !openSet.Contains(neighbor))
@@ -51,11 +59,16 @@ namespace PathFinderVisualizer
                         continue;
                     }
 
+                    if (neighbor.Walkable)
+                    {
+                        isDeadEnd = false;
+                    }
+
                     double newDistance = distance[current] + CalculateDistanceManhattan(current, neighbor);
-                    neighbor.ForegroudColor = Color.LimeGreen;
 
                     if (newDistance < distance[neighbor])
                     {
+                        neighbor.ForegroudColor = Color.LimeGreen;
                         distance[neighbor] = newDistance;
                         if (cameFrom.ContainsKey(neighbor))
                         {
@@ -77,15 +90,14 @@ namespace PathFinderVisualizer
         public async void FindPathAstar(Cell[,] cells, Cell startingCell, Cell endingCell)
         {
             List<Cell> openSet = new List<Cell>();
-            List<Cell> closedSet = new List<Cell>();
             IDictionary<Cell, Cell> cameFrom = new Dictionary<Cell, Cell>();
             IDictionary<Cell, double> gScore = new Dictionary<Cell, double>();
             IDictionary<Cell, double> fScore = new Dictionary<Cell, double>();
 
             foreach (Cell cell in cells)
             {
-                gScore.Add(new KeyValuePair<Cell, double>(cell, 0));
-                fScore.Add(new KeyValuePair<Cell, double>(cell, 0));
+                gScore.Add(new KeyValuePair<Cell, double>(cell, double.PositiveInfinity));
+                fScore.Add(new KeyValuePair<Cell, double>(cell, double.PositiveInfinity));
             }
 
             gScore[startingCell] = 0;
@@ -98,14 +110,17 @@ namespace PathFinderVisualizer
                 Cell current = openSet[0];
                 foreach(Cell cell in openSet)
                 {
-                    if (fScore[cell] <= fScore[current] || CalculateDistanceManhattan(cell, endingCell) < CalculateDistanceManhattan(current, endingCell))
+                    if (fScore[cell] < fScore[current])
+                    {
+                        current = cell;
+                    }
+                    if (fScore[cell] == fScore[current] && CalculateDistanceManhattan(cell, endingCell) < CalculateDistanceManhattan(current, endingCell))
                     {
                         current = cell;
                     }
                 }
 
                 openSet.Remove(current);
-                closedSet.Add(current);
 
                 if (current == endingCell)
                 {
@@ -119,16 +134,16 @@ namespace PathFinderVisualizer
 
                 foreach(Cell neighbor in current.NeighboringCells)
                 {
-                    if (!neighbor.Walkable || closedSet.Contains(neighbor))
+                    if (!neighbor.Walkable)
                     {
                         continue;
                     }
 
                     double tenativegScore = gScore[current] + CalculateDistanceManhattan(current, neighbor);
 
-                    neighbor.ForegroudColor = Color.LimeGreen;
-                    if (tenativegScore < gScore[neighbor] || !openSet.Contains(neighbor))
+                    if (tenativegScore < gScore[neighbor])
                     {
+                        neighbor.ForegroudColor = Color.LimeGreen;
                         if (cameFrom.ContainsKey(neighbor))
                         {
                             cameFrom[neighbor] = current;
