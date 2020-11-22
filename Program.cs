@@ -12,7 +12,7 @@ namespace PathFinderVisualizer
             Cell startingCell = null;
             Cell endingCell = null;
 
-            Grid grid = new Grid(10, 10, 900, 755, Color.Black, 50, 1);
+            Grid grid = new Grid(10, 10, 900, 755, Color.Black, 40, 1);
             ObstacleDrawer obstacleDrawer = new ObstacleDrawer();
             Solver solver = new Solver();
             do 
@@ -36,7 +36,7 @@ namespace PathFinderVisualizer
                         startingCell.ForegroudColor = Color.White;
                     }
                     startingCell = clickedCell;
-                    startingCell.ForegroudColor = Color.Purple;
+                    startingCell.ForegroudColor = Color.Red;
                 }
                 else if (SplashKit.KeyTyped(KeyCode.EKey))
                 {
@@ -46,7 +46,7 @@ namespace PathFinderVisualizer
                         endingCell.ForegroudColor = Color.White;
                     }
                     endingCell = clickedCell;
-                    endingCell.ForegroudColor = Color.Purple;
+                    endingCell.ForegroudColor = Color.Red;
                 }
 
                 if (SplashKit.KeyTyped(KeyCode.RKey))
@@ -59,8 +59,8 @@ namespace PathFinderVisualizer
                 if (SplashKit.KeyTyped(KeyCode.TKey))
                 {
                     grid.ResetPath();
-                    startingCell.ForegroudColor = Color.Purple;
-                    endingCell.ForegroudColor = Color.Purple;
+                    startingCell.ForegroudColor = Color.Red;
+                    endingCell.ForegroudColor = Color.Red;
                 }
                 if (SplashKit.KeyTyped(KeyCode.MKey))
                 {

@@ -42,6 +42,8 @@ namespace PathFinderVisualizer
                 if (current == endingCell)
                 {
                     ReconstructPath(cameFrom, current);
+                    startingCell.ForegroudColor = Color.Red;
+                    endingCell.ForegroudColor = Color.Red;
                     break;
                 }
 
@@ -67,7 +69,6 @@ namespace PathFinderVisualizer
 
                     if (newDistance < distance[neighbor])
                     {
-                        neighbor.ForegroudColor = Color.LimeGreen;
                         distance[neighbor] = newDistance;
                         if (cameFrom.ContainsKey(neighbor))
                         {
@@ -79,9 +80,10 @@ namespace PathFinderVisualizer
                         }
                     }
                 }
-                current.ForegroudColor = Color.SwinburneRed;
-                startingCell.ForegroudColor = Color.Purple;
-                endingCell.ForegroudColor = Color.Purple;
+                double scaling = CalculateScalingFactor(startingCell, endingCell, current);
+                current.ForegroudColor = Color.RGBAColor(1 - scaling * 0.45, 0, scaling, 0.75);
+                startingCell.ForegroudColor = Color.Red;
+                endingCell.ForegroudColor = Color.Red;
                 await Task.Delay(10);
             }
         }
@@ -124,8 +126,8 @@ namespace PathFinderVisualizer
                 if (current == endingCell)
                 {
                     ReconstructPath(cameFrom, current);
-                    startingCell.ForegroudColor = Color.Purple;
-                    endingCell.ForegroudColor = Color.Purple;
+                    startingCell.ForegroudColor = Color.Red;
+                    endingCell.ForegroudColor = Color.Red;
                     break;
                 }
                 
@@ -142,7 +144,6 @@ namespace PathFinderVisualizer
 
                     if (tenativegScore < gScore[neighbor])
                     {
-                        neighbor.ForegroudColor = Color.LimeGreen;
                         if (cameFrom.ContainsKey(neighbor))
                         {
                             cameFrom[neighbor] = current;
@@ -161,9 +162,11 @@ namespace PathFinderVisualizer
                     }
 
                 }
-                current.ForegroudColor = Color.SwinburneRed;
-                startingCell.ForegroudColor = Color.Purple;
-                endingCell.ForegroudColor = Color.Purple;
+                
+                double scaling = CalculateScalingFactor(startingCell, endingCell, current);
+                current.ForegroudColor = Color.RGBAColor(1 - scaling * 0.45, 0, scaling, 0.75);
+                startingCell.ForegroudColor = Color.Red;
+                endingCell.ForegroudColor = Color.Red;
                 await Task.Delay(10);
             }
         }
@@ -176,8 +179,13 @@ namespace PathFinderVisualizer
             {
                 current = cameFrom[current];
                 path.Insert(0, current);
-                current.ForegroudColor = Color.Purple;
+                current.ForegroudColor = Color.RGBAColor(1, 1, 0, 0.75);
             }
+        }
+
+        private Double CalculateScalingFactor(Cell startingCell, Cell endingCell, Cell current)
+        {
+            return CalculateDistanceManhattan(current, endingCell) / CalculateDistanceManhattan(startingCell, endingCell) * 1;
         }
 
         public double CalculateDistanceManhattan(Cell startingCell, Cell endingCell)
