@@ -22,11 +22,11 @@ namespace PathFinderVisualizer
 
                 if (SplashKit.MouseClicked(MouseButton.LeftButton) || SplashKit.MouseDown(MouseButton.LeftButton)) 
                 {
-                    grid.HasBeenClicked(SplashKit.MousePosition(), MouseButton.LeftButton);
+                    obstacleDrawer.DrawUser(grid, SplashKit.MousePosition(), MouseButton.LeftButton);
                 } 
                 else if (SplashKit.MouseClicked(MouseButton.RightButton) || SplashKit.MouseDown(MouseButton.RightButton)) 
                 {
-                    grid.HasBeenClicked(SplashKit.MousePosition(), MouseButton.RightButton);
+                    obstacleDrawer.DrawUser(grid, SplashKit.MousePosition(), MouseButton.RightButton);
                 } 
                 else if (SplashKit.KeyTyped(KeyCode.SKey))
                 {

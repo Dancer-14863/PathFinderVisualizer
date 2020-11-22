@@ -2,7 +2,6 @@ using SplashKitSDK;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PathFinderVisualizer
 {
@@ -185,6 +184,5 @@ namespace PathFinderVisualizer
         {
             return Math.Abs(startingCell.X - endingCell.X) + Math.Abs(startingCell.Y - endingCell.Y);
         }
-
     }
 }

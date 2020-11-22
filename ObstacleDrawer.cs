@@ -1,10 +1,16 @@
 using System;
+using SplashKitSDK;
 
 namespace PathFinderVisualizer
 {
     public class ObstacleDrawer
     {
         public ObstacleDrawer() {}
+
+        public void DrawUser(Grid grid, Point2D point, MouseButton button)
+        {
+            grid.HasBeenClicked(point, button);
+        }
 
         public void Random(Grid grid)
         {
