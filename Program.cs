@@ -12,9 +12,10 @@ namespace PathFinderVisualizer
             Cell startingCell = null;
             Cell endingCell = null;
 
-            Grid grid = new Grid(10, 10, 900, 755, Color.Black, 40, 1);
+            Grid grid = new Grid(30, 30, 870, 750, Color.Black, 40, 1);
             ObstacleDrawer obstacleDrawer = new ObstacleDrawer();
             Solver solver = new Solver();
+            Sprite flag = SplashKit.CreateSprite("flag.png");
             do 
             {
                 SplashKit.ProcessEvents();
@@ -80,16 +81,30 @@ namespace PathFinderVisualizer
 
                 if (startingCell is Cell && endingCell is Cell && SplashKit.KeyTyped(KeyCode.FKey))
                 {
+                    grid.ResetPath();
                     solver.FindPathAstar(grid.Cells, startingCell, endingCell);
                 }
 
                 if (startingCell is Cell && endingCell is Cell && SplashKit.KeyTyped(KeyCode.GKey))
                 {
+                    grid.ResetPath();
                     solver.FindPathDiji(grid.Cells, startingCell, endingCell);
                 }
 
 
                 grid.Draw();
+                if (startingCell is Cell)
+                {
+                    flag.X = startingCell.X - 2;
+                    flag.Y = startingCell.Y - 30;
+                    flag.Draw();
+                }
+                if (endingCell is Cell)
+                {
+                    flag.X = endingCell.X - 2;
+                    flag.Y = endingCell.Y - 30;
+                    flag.Draw();
+                }
                 SplashKit.RefreshScreen(60);
             } while(!SplashKit.QuitRequested());
         }
