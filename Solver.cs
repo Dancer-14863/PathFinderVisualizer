@@ -76,7 +76,7 @@ namespace PathFinderVisualizer
                 }
 
                 double scaling = CalculateScalingFactor(startingCell, endingCell, current);
-                current.ForegroudColor = Color.RGBAColor(1 - scaling * 0.35, 0, scaling, 0.8);
+                current.ForegroudColor = Color.RGBAColor(1- scaling * 0.45 , 0, scaling, 0.8);
                 startingCell.ForegroudColor = Color.Red;
                 endingCell.ForegroudColor = Color.Red;
                 await Task.Delay(10);
@@ -159,7 +159,7 @@ namespace PathFinderVisualizer
                 }
                 
                 double scaling = CalculateScalingFactor(startingCell, endingCell, current);
-                current.ForegroudColor = Color.RGBAColor(1 - scaling * 0.35, 0, scaling, 0.8);
+                current.ForegroudColor = Color.RGBAColor(1- scaling * 0.45 , 0, scaling, 0.8);
                 startingCell.ForegroudColor = Color.Red;
                 endingCell.ForegroudColor = Color.Red;
                 await Task.Delay(10);
