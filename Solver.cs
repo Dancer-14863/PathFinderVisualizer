@@ -41,7 +41,7 @@ namespace PathFinderVisualizer
                 if (current == endingCell)
                 {
                     ReconstructPath(cameFrom, current);
-                    startingCell.ForegroudColor = Color.Red;
+                    startingCell.ForegroudColor = Color.LimeGreen;
                     endingCell.ForegroudColor = Color.Red;
                     break;
                 }
@@ -76,8 +76,8 @@ namespace PathFinderVisualizer
                 }
 
                 double scaling = CalculateScalingFactor(startingCell, endingCell, current);
-                current.ForegroudColor = Color.RGBAColor(1- scaling * 0.45 , 0, scaling, 0.8);
-                startingCell.ForegroudColor = Color.Red;
+                current.ForegroudColor = Color.RGBAColor(1 - scaling * 0.45, scaling, 0, 0.75);
+                startingCell.ForegroudColor = Color.LimeGreen;
                 endingCell.ForegroudColor = Color.Red;
                 await Task.Delay(10);
             }
@@ -121,7 +121,7 @@ namespace PathFinderVisualizer
                 if (current == endingCell)
                 {
                     ReconstructPath(cameFrom, current);
-                    startingCell.ForegroudColor = Color.Red;
+                    startingCell.ForegroudColor = Color.LimeGreen;
                     endingCell.ForegroudColor = Color.Red;
                     break;
                 }
@@ -159,8 +159,8 @@ namespace PathFinderVisualizer
                 }
                 
                 double scaling = CalculateScalingFactor(startingCell, endingCell, current);
-                current.ForegroudColor = Color.RGBAColor(1- scaling * 0.45 , 0, scaling, 0.8);
-                startingCell.ForegroudColor = Color.Red;
+                current.ForegroudColor = Color.RGBAColor(1 - scaling * 0.45, scaling, 0, 0.75);
+                startingCell.ForegroudColor = Color.LimeGreen;
                 endingCell.ForegroudColor = Color.Red;
                 await Task.Delay(10);
             }
@@ -177,7 +177,7 @@ namespace PathFinderVisualizer
             }
             foreach(Cell cell in path)
             {
-                cell.ForegroudColor = Color.RGBAColor(1, 1, 0, 0.75);
+                cell.ForegroudColor = Color.RGBAColor(1, 1, 0, 0.9);
                 await Task.Delay(10);
             }
 
@@ -185,7 +185,7 @@ namespace PathFinderVisualizer
 
         private Double CalculateScalingFactor(Cell startingCell, Cell endingCell, Cell current)
         {
-            return CalculateDistanceManhattan(current, endingCell) / CalculateDistanceManhattan(startingCell, endingCell) * 1;
+            return (CalculateDistanceManhattan(current, endingCell) / CalculateDistanceManhattan(startingCell, endingCell));
         }
 
         public double CalculateDistanceManhattan(Cell startingCell, Cell endingCell)

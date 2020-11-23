@@ -15,7 +15,8 @@ namespace PathFinderVisualizer
             Grid grid = new Grid(30, 30, 870, 750, Color.Black, 40, 1);
             ObstacleDrawer obstacleDrawer = new ObstacleDrawer();
             Solver solver = new Solver();
-            Sprite flag = SplashKit.CreateSprite("flag.png");
+            Sprite red_flag = SplashKit.CreateSprite("red_flag.png");
+            Sprite  green_flag = SplashKit.CreateSprite("green_flag.png");
             do 
             {
                 SplashKit.ProcessEvents();
@@ -36,8 +37,11 @@ namespace PathFinderVisualizer
                     {
                         startingCell.ForegroudColor = Color.White;
                     }
-                    startingCell = clickedCell;
-                    startingCell.ForegroudColor = Color.Red;
+                    if (clickedCell is Cell)
+                    {
+                        startingCell = clickedCell;
+                        startingCell.ForegroudColor = Color.LimeGreen;
+                    }
                 }
                 else if (SplashKit.KeyTyped(KeyCode.EKey))
                 {
@@ -46,8 +50,11 @@ namespace PathFinderVisualizer
                     {
                         endingCell.ForegroudColor = Color.White;
                     }
-                    endingCell = clickedCell;
-                    endingCell.ForegroudColor = Color.Red;
+                    if (clickedCell is Cell)
+                    {
+                        endingCell = clickedCell;
+                        endingCell.ForegroudColor = Color.Red;
+                    }
                 }
 
                 if (SplashKit.KeyTyped(KeyCode.RKey))
@@ -60,7 +67,7 @@ namespace PathFinderVisualizer
                 if (SplashKit.KeyTyped(KeyCode.TKey))
                 {
                     grid.ResetPath();
-                    startingCell.ForegroudColor = Color.Red;
+                    startingCell.ForegroudColor = Color.LimeGreen;
                     endingCell.ForegroudColor = Color.Red;
                 }
                 if (SplashKit.KeyTyped(KeyCode.MKey))
@@ -95,15 +102,15 @@ namespace PathFinderVisualizer
                 grid.Draw();
                 if (startingCell is Cell)
                 {
-                    flag.X = startingCell.X - 2;
-                    flag.Y = startingCell.Y - 30;
-                    flag.Draw();
+                    green_flag.X = startingCell.X - 2;
+                    green_flag.Y = startingCell.Y - 30;
+                    green_flag.Draw();
                 }
                 if (endingCell is Cell)
                 {
-                    flag.X = endingCell.X - 2;
-                    flag.Y = endingCell.Y - 30;
-                    flag.Draw();
+                    red_flag.X = endingCell.X - 2;
+                    red_flag.Y = endingCell.Y - 30;
+                    red_flag.Draw();
                 }
                 SplashKit.RefreshScreen(60);
             } while(!SplashKit.QuitRequested());
