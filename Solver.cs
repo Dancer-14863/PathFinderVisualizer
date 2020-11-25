@@ -9,7 +9,6 @@ namespace PathFinderVisualizer
     {
         public Solver() {}
 
-        //https://medium.com/@nicholas.w.swift/easy-dijkstras-pathfinding-324a51eeb0f
         public async void FindPathDiji(Cell[,] cells, Cell startingCell, Cell endingCell)
         {
             List<Cell> openSet = new List<Cell>();
@@ -30,7 +29,7 @@ namespace PathFinderVisualizer
                 Cell current = openSet[0];
                 foreach(Cell cell in openSet)
                 {
-                    if (distance[cell] < distance[current])
+                    if (distance[cell] <= distance[current])
                     {
                         current = cell;
                     }
@@ -57,7 +56,6 @@ namespace PathFinderVisualizer
 
                     if (newDistance < distance[neighbor])
                     {
-                        distance[neighbor] = newDistance;
                         if (cameFrom.ContainsKey(neighbor))
                         {
                             cameFrom[neighbor] = current;
@@ -66,6 +64,7 @@ namespace PathFinderVisualizer
                         {
                             cameFrom.Add(new KeyValuePair<Cell, Cell>(neighbor, current));
                         }
+                        distance[neighbor] = newDistance;
 
                         if (!openSet.Contains(neighbor))
                         {
@@ -106,11 +105,7 @@ namespace PathFinderVisualizer
                 Cell current = openSet[0];
                 foreach(Cell cell in openSet)
                 {
-                    if (fScore[cell] < fScore[current])
-                    {
-                        current = cell;
-                    }
-                    if (fScore[cell] == fScore[current] && CalculateDistanceManhattan(cell, endingCell) < CalculateDistanceManhattan(current, endingCell))
+                    if (fScore[cell] <= fScore[current])
                     {
                         current = cell;
                     }

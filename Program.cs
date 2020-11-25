@@ -67,8 +67,14 @@ namespace PathFinderVisualizer
                 if (SplashKit.KeyTyped(KeyCode.TKey))
                 {
                     grid.ResetPath();
-                    startingCell.ForegroudColor = Color.LimeGreen;
-                    endingCell.ForegroudColor = Color.Red;
+                    if (startingCell is Cell)
+                    {
+                        startingCell.ForegroudColor = Color.LimeGreen;
+                    }
+                    if (endingCell is Cell)
+                    {
+                        endingCell.ForegroudColor = Color.Red;
+                    }
                 }
                 if (SplashKit.KeyTyped(KeyCode.MKey))
                 {
