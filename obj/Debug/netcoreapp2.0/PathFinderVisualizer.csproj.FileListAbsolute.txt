@@ -10,3 +10,6 @@ C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\obj\Debug\netcoreap
 C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\obj\Debug\netcoreapp2.0\PathFinderVisualizer.dll
 C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\obj\Debug\netcoreapp2.0\PathFinderVisualizer.pdb
 C:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\obj\Debug\netcoreapp2.0\PathFinderVisualizer.genruntimeconfig.cache
+c:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\bin\Debug\netcoreapp2.0\NUnit3.TestAdapter.dll
+c:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\bin\Debug\netcoreapp2.0\nunit.engine.netstandard.dll
+c:\Users\malika\Documents\Code\COS20007\PathFinderVisualizer\bin\Debug\netcoreapp2.0\Mono.Cecil.dll
