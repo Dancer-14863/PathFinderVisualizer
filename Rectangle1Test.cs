@@ -26,7 +26,7 @@ namespace PathFinderVisualizer
             point = SplashKit.PointAt(225, 200);
             Assert.IsTrue(newCell.IsAt(point));
             // should return false as the point is out of bounds
-            point = SplashKit.PointAt(225, 230);
+            point = SplashKit.PointAt(225, 260);
             Assert.IsFalse(newCell.IsAt(point));
         }
     }
