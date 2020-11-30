@@ -29,6 +29,7 @@ namespace PathFinderVisualizer
             Window shapesWindow;
             shapesWindow = new Window("Path Finding Visualizer", 1366, 768);
             InitUI();
+            solver.TaskDelayTime = (int)animationDelaySlider.SliderValue;
 
             do 
             {
@@ -36,10 +37,11 @@ namespace PathFinderVisualizer
                 SplashKit.ClearScreen(Color.White);
                 DrawUI();
 
-                // if (animationDelaySlider.HasBeenClicked(MouseButton.LeftButton))
-                // {
-                //     solver.TaskDelayTime = animationDelaySlider.SliderValue;
-                // }
+                if (animationDelaySlider.HasBeenClicked(MouseButton.LeftButton))
+                {
+                    Console.WriteLine((int)animationDelaySlider.SliderValue);
+                    solver.TaskDelayTime = (int)animationDelaySlider.SliderValue;
+                }
 
                 if (!(activeButton is Button) || activeButton == drawOptionUserButton)
                 {
@@ -284,7 +286,7 @@ namespace PathFinderVisualizer
             clearPathButton = new Button(currentX, currentY, 150, 50, Color.Black, "Clear Path", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
             currentX -= 200;
             currentY += LINE_SPACE + 50;
-            animationDelaySlider = new Slider(currentX, currentY, 100, 100, Color.Black, Color.Red, 0, 100);
+            animationDelaySlider = new Slider(currentX, currentY, 350, 100, Color.Black, Color.Red, "Animation Speed(ms) :", titleFont, 5, 35);
         }
 
         public static void DrawUI()
