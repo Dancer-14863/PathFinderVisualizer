@@ -10,7 +10,7 @@ namespace PathFinderVisualizer
         private int _cellPadding;
         private Cell[,] _grid;
 
-        public Grid(float x, float y, int width, int height, Color color, int cells, int padding) : base (x, y, width, height, color)
+        public Grid(double x, double y, int width, int height, Color color, int cells, int padding) : base (x, y, width, height, color)
         {
             _numberOfCellsInRow = cells;
             _cellPadding = padding;
@@ -28,8 +28,8 @@ namespace PathFinderVisualizer
             int cellWidth = _width / _numberOfCellsInRow;
             int cellHeight = _height / _numberOfCellsInRow;
             _grid = new Cell[_numberOfCellsInRow, _numberOfCellsInRow];
-            float X = _x;
-            float Y = _y;
+            double X = _x;
+            double Y = _y;
 
             for (int i = 0; i < _numberOfCellsInRow; i++)
             {
@@ -97,23 +97,27 @@ namespace PathFinderVisualizer
             }
         }
 
-        public void HasBeenClicked(Point2D pt, MouseButton clickedButton)
+        public override bool HasBeenClicked(MouseButton clickedButton)
         {
+            bool clicked = false;
             foreach (Cell cell in _grid)
             {
-                if (cell.IsAt(pt))
+                if (cell.IsAt(SplashKit.MousePosition()))
                 {
                     switch (clickedButton)
                     {
                         case MouseButton.LeftButton:
                             cell.Walkable = false;
+                            clicked = true;
                             break;
                         case MouseButton.RightButton:
                             cell.Walkable = true;
+                            clicked = true;
                             break;
                     }
                 }
             }
+            return clicked;
         }
 
         public Cell GetTargetCell(Point2D pt)

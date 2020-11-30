@@ -7,7 +7,17 @@ namespace PathFinderVisualizer
 {
     public class Solver
     {
-        public Solver() {}
+        private int _taskDelayTime;
+
+        public Solver() 
+        {
+            _taskDelayTime = 10;
+        }
+
+        public int TaskDelayTime
+        {
+            set { _taskDelayTime = value; }
+        }
 
         public async void FindPathDiji(Cell[,] cells, Cell startingCell, Cell endingCell)
         {
@@ -39,7 +49,7 @@ namespace PathFinderVisualizer
 
                 if (current == endingCell)
                 {
-                    ReconstructPath(cameFrom, current);
+                    await ReconstructPath(cameFrom, current);
                     startingCell.ForegroudColor = Color.LimeGreen;
                     endingCell.ForegroudColor = Color.Red;
                     break;
@@ -78,7 +88,7 @@ namespace PathFinderVisualizer
                 current.ForegroudColor = Color.RGBAColor(1 - scaling * 0.45, scaling, 0, 0.75);
                 startingCell.ForegroudColor = Color.LimeGreen;
                 endingCell.ForegroudColor = Color.Red;
-                await Task.Delay(10);
+                await Task.Delay(_taskDelayTime);
             }
         }
 
@@ -115,7 +125,7 @@ namespace PathFinderVisualizer
 
                 if (current == endingCell)
                 {
-                    ReconstructPath(cameFrom, current);
+                    await ReconstructPath(cameFrom, current);
                     startingCell.ForegroudColor = Color.LimeGreen;
                     endingCell.ForegroudColor = Color.Red;
                     break;
@@ -157,11 +167,11 @@ namespace PathFinderVisualizer
                 current.ForegroudColor = Color.RGBAColor(1 - scaling * 0.45, scaling, 0, 0.75);
                 startingCell.ForegroudColor = Color.LimeGreen;
                 endingCell.ForegroudColor = Color.Red;
-                await Task.Delay(10);
+                await Task.Delay(_taskDelayTime);
             }
         }
 
-        public async void ReconstructPath(IDictionary<Cell, Cell> cameFrom, Cell current)
+        public async Task ReconstructPath(IDictionary<Cell, Cell> cameFrom, Cell current)
         {
             List<Cell> path = new List<Cell>();
             path.Add(current);
@@ -173,7 +183,7 @@ namespace PathFinderVisualizer
             foreach(Cell cell in path)
             {
                 cell.ForegroudColor = Color.RGBAColor(1, 1, 0, 0.9);
-                await Task.Delay(10);
+                await Task.Delay(_taskDelayTime);
             }
 
         }

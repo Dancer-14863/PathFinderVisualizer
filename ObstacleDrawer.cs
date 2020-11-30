@@ -7,9 +7,9 @@ namespace PathFinderVisualizer
     {
         public ObstacleDrawer() {}
 
-        public void DrawUser(Grid grid, Point2D point, MouseButton button)
+        public void DrawUser(Grid grid, MouseButton button)
         {
-            grid.HasBeenClicked(point, button);
+            grid.HasBeenClicked(button);
         }
 
         public void Random(Grid grid)

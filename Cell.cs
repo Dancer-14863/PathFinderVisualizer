@@ -10,7 +10,7 @@ namespace PathFinderVisualizer
         private List<Cell> _neighboringCells;
         private bool _walkable;
 
-        public Cell(float x, float y, int width, int height, Color color, Color foregroundColor, int padding) : base (x, y, width, height, color)
+        public Cell(double x, double y, int width, int height, Color color, Color foregroundColor, int padding) : base (x, y, width, height, color)
         {
             _foregroundColor = foregroundColor;
             _padding = padding;

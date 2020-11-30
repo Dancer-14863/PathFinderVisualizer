@@ -4,11 +4,11 @@ namespace PathFinderVisualizer
 {
     public class Rectangle1
     {
-        protected float _x, _y;
+        protected double _x, _y;
         protected int _width, _height;
         protected Color _color;
 
-        public Rectangle1(float x, float y, int width, int height, Color color)
+        public Rectangle1(double x, double y, int width, int height, Color color)
         {
             _x = x;
             _y = y;
@@ -17,14 +17,16 @@ namespace PathFinderVisualizer
             _color = color;
         }
 
-        public float X
+        public double X
         {
             get { return _x; }
+            set { _x = value; }
         }
 
-        public float Y
+        public double Y
         {
             get { return _y; }
+            set { _y = value; }
         }
 
         public Color color
@@ -52,6 +54,16 @@ namespace PathFinderVisualizer
             }
             
             return isAtPoint;
+        }
+
+        public virtual bool HasBeenClicked(MouseButton clickedButton)
+        {
+            bool clicked = false;
+            if (SplashKit.MouseClicked(clickedButton) && IsAt(SplashKit.MousePosition()))
+            {
+                clicked = true;
+            }
+            return clicked;
         }
 
     }
