@@ -1,5 +1,4 @@
 using SplashKitSDK;
-using System;
 
 namespace PathFinderVisualizer
 {
@@ -25,6 +24,10 @@ namespace PathFinderVisualizer
 
         public static void Main()
         {
+            /*
+                Points to button last clicked by the user. A value of null
+                indicates that there is no active button
+            */
             Button activeButton = null;
             Window shapesWindow;
             shapesWindow = new Window("Path Finding Visualizer", 1366, 768);
@@ -39,53 +42,53 @@ namespace PathFinderVisualizer
 
                 if (animationDelaySlider.HasBeenClicked(MouseButton.LeftButton))
                 {
-                    Console.WriteLine((int)animationDelaySlider.SliderValue);
                     solver.TaskDelayTime = (int)animationDelaySlider.SliderValue;
                 }
 
+                // if there is no active button, sets a clicked button as teh active button
                 if (!(activeButton is Button) || activeButton == drawOptionUserButton)
                 {
-                    if (SplashKit.MouseClicked(MouseButton.LeftButton) && setStartingPointButton.IsAt(SplashKit.MousePosition()))
+                    if (setStartingPointButton.HasBeenClicked(MouseButton.LeftButton))
                     {
                         setStartingPointButton.Active = true;
                         activeButton = setStartingPointButton;
                     }
-                    else if (SplashKit.MouseClicked(MouseButton.LeftButton) && setEndingPointButton.IsAt(SplashKit.MousePosition()))
+                    else if (setEndingPointButton.HasBeenClicked(MouseButton.LeftButton))
                     {
                         setEndingPointButton.Active = true;
                         activeButton = setEndingPointButton;
                     }
-                    else if (SplashKit.MouseClicked(MouseButton.LeftButton) && solveDijiButton.IsAt(SplashKit.MousePosition()))
+                    else if (solveDijiButton.HasBeenClicked(MouseButton.LeftButton))
                     {
                         solveDijiButton.Active = true;
                         activeButton = solveDijiButton;
                     }
-                    else if (SplashKit.MouseClicked(MouseButton.LeftButton) && solveAstarButton.IsAt(SplashKit.MousePosition()))
+                    else if (solveAstarButton.HasBeenClicked(MouseButton.LeftButton))
                     {
                         solveAstarButton.Active = true;
                         activeButton = solveAstarButton;
                     }
-                    else if (SplashKit.MouseClicked(MouseButton.LeftButton) && drawOptionUserButton.IsAt(SplashKit.MousePosition()))
+                    else if (drawOptionUserButton.HasBeenClicked(MouseButton.LeftButton))
                     {
                         drawOptionUserButton.Active = true;
                         activeButton = drawOptionUserButton;
                     }
-                    else if (SplashKit.MouseClicked(MouseButton.LeftButton) && drawOptionRandomButton.IsAt(SplashKit.MousePosition()))
+                    else if (drawOptionRandomButton.HasBeenClicked(MouseButton.LeftButton))
                     {
                         drawOptionRandomButton.Active = true;
                         activeButton = drawOptionRandomButton;
                     }
-                    else if (SplashKit.MouseClicked(MouseButton.LeftButton) && drawOptionMazeButton.IsAt(SplashKit.MousePosition()))
+                    else if (drawOptionMazeButton.HasBeenClicked(MouseButton.LeftButton))
                     {
                         drawOptionMazeButton.Active = true;
                         activeButton = drawOptionMazeButton;
                     }
-                    else if (SplashKit.MouseClicked(MouseButton.LeftButton) && clearGridButton.IsAt(SplashKit.MousePosition()))
+                    else if (clearGridButton.HasBeenClicked(MouseButton.LeftButton))
                     {
                         clearGridButton.Active = true;
                         activeButton = clearGridButton;
                     }
-                    else if (SplashKit.MouseClicked(MouseButton.LeftButton) && clearPathButton.IsAt(SplashKit.MousePosition()))
+                    else if (clearPathButton.HasBeenClicked(MouseButton.LeftButton))
                     {
                         clearPathButton.Active = true;
                         activeButton = clearPathButton;
@@ -96,12 +99,14 @@ namespace PathFinderVisualizer
                         drawOptionUserButton.Active = false;
                     }
                 }
-                else if (SplashKit.MouseClicked(MouseButton.LeftButton) && activeButton.IsAt(SplashKit.MousePosition()))
+                // if active button is set and is clicked again, removes it as active button
+                else if (activeButton.HasBeenClicked(MouseButton.LeftButton))
                 {
                     activeButton.Active = false;
                     activeButton = null;
                 }
 
+                // depending on the active button different functionality are carried out
                 if (setStartingPointButton.Active && (grid.IsAt(SplashKit.MousePosition()) && SplashKit.MouseClicked(MouseButton.LeftButton)))
                 {
                     Cell clickedCell = grid.GetTargetCell(SplashKit.MousePosition());
@@ -170,7 +175,7 @@ namespace PathFinderVisualizer
                     startingCell = null;
                     endingCell = null;
                     grid.ResetGrid();
-                    obstacleDrawer.Random(grid);
+                    obstacleDrawer.DrawRandom(grid);
 
                     drawOptionRandomButton.Active = false;
                     activeButton = null;
@@ -212,6 +217,7 @@ namespace PathFinderVisualizer
 
 
                 grid.Draw();
+                // draws the flag sprites on the starting and ending cells
                 if (startingCell is Cell)
                 {
                     green_flag.X = (float)startingCell.X - 2;
@@ -228,67 +234,30 @@ namespace PathFinderVisualizer
             } while(!SplashKit.QuitRequested());
         }
 
+        /// <summary>
+        /// Initializes the UI buttons
+        /// </summary>
         public static void InitUI()
         {
-            const int START_X = 900;
-            const int START_Y = 30;
-            const int MARGIN = 40;
-            const int LINE_SPACE = 20;
-            const int TITLE_FONT_SIZE = 32;
-            const int TEXT_FONT_SIZE = 16;
             const int BUTTON_FONT_SIZE = 16;
-
-            int currentX = START_X;
-            int currentY = START_Y;
-            Font textFont = new Font("textFont", "resources/Roboto-Regular.ttf");
             Font titleFont = new Font("titleFont", "resources/Roboto-Black.ttf");
             Font buttonFont = new Font("buttonFont", "resources/Roboto-Black.ttf");
 
-            SplashKit.DrawText("Pathfinding Visualizer", Color.Black, titleFont, TITLE_FONT_SIZE, currentX, currentY);
-            currentY += MARGIN;
-
-            SplashKit.DrawText("The purpose of this program is to allow you to visualize how", Color.Black, textFont, TEXT_FONT_SIZE, currentX, currentY);
-            currentY += LINE_SPACE;
-            SplashKit.DrawText("Dijkstra's and A* pathfinding algorithms function.", Color.Black, textFont, TEXT_FONT_SIZE, currentX, currentY);
-            
-            currentY += MARGIN;
-            SplashKit.DrawText("Set Starting and Ending Cells", Color.Black, titleFont, TEXT_FONT_SIZE, currentX, currentY);
-            currentY += LINE_SPACE + 10;
-            setStartingPointButton = new Button(currentX, currentY, 150, 50, Color.Black, "Starting Cell", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
-            currentX += 200;
-            setEndingPointButton = new Button(currentX, currentY, 150, 50, Color.Black, "Ending Cell", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
-
-            currentX -= 200;
-            currentY += MARGIN * 2;
-            SplashKit.DrawText("Select Pathfinding Algorithm", Color.Black, titleFont, TEXT_FONT_SIZE, currentX, currentY);
-            currentY += LINE_SPACE + 10;
-            solveDijiButton = new Button(currentX, currentY, 150, 50, Color.Black, "Dijkstra", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
-            currentX += 200;
-            solveAstarButton = new Button(currentX, currentY, 150, 50, Color.Black, "A*", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
-
-
-            currentX -= 200;
-            currentY += MARGIN * 2;
-            SplashKit.DrawText("Select Obstacle Drawing Method", Color.Black, titleFont, TEXT_FONT_SIZE, currentX, currentY);
-            currentY += LINE_SPACE + 10;
-            drawOptionUserButton = new Button(currentX, currentY, 100, 50, Color.Black, "User", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
-            currentX += 150;
-            drawOptionRandomButton = new Button(currentX, currentY, 100, 50, Color.Black, "Random", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
-            currentX += 150;
-            drawOptionMazeButton = new Button(currentX, currentY, 100, 50, Color.Black, "Maze", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
-
-            currentX -= 300;
-            currentY += MARGIN * 2;
-            SplashKit.DrawText("Options", Color.Black, titleFont, TEXT_FONT_SIZE, currentX, currentY);
-            currentY += LINE_SPACE + 10;
-            clearGridButton = new Button(currentX, currentY, 150, 50, Color.Black, "Clear Grid", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
-            currentX += 200;
-            clearPathButton = new Button(currentX, currentY, 150, 50, Color.Black, "Clear Path", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
-            currentX -= 200;
-            currentY += LINE_SPACE + 50;
-            animationDelaySlider = new Slider(currentX, currentY, 350, 100, Color.Black, Color.Red, "Animation Speed(ms) :", titleFont, 5, 35);
+            setStartingPointButton = new Button(900, 160, 150, 50, Color.Black, "Starting Cell", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
+            setEndingPointButton = new Button(1100, 160, 150, 50, Color.Black, "Ending Cell", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
+            solveDijiButton = new Button(900, 270, 150, 50, Color.Black, "Dijkstra", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
+            solveAstarButton = new Button(1100, 270, 150, 50, Color.Black, "A*", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
+            drawOptionUserButton = new Button(900, 380, 100, 50, Color.Black, "User", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
+            drawOptionRandomButton = new Button(1050, 380, 100, 50, Color.Black, "Random", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
+            drawOptionMazeButton = new Button(1200, 380, 100, 50, Color.Black, "Maze", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
+            clearGridButton = new Button(900, 490, 150, 50, Color.Black, "Clear Grid", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
+            clearPathButton = new Button(1100, 490, 150, 50, Color.Black, "Clear Path", BUTTON_FONT_SIZE, buttonFont, Color.White, Color.Red);
+            animationDelaySlider = new Slider(900, 560, 350, 100, Color.Black, Color.Red, "Animation Speed(ms) :", titleFont, 5, 35);
         }
 
+        /// <summary>
+        /// Draws the UI buttons and text
+        /// </summary>
         public static void DrawUI()
         {
             const int START_X = 900;
@@ -302,7 +271,6 @@ namespace PathFinderVisualizer
             int currentY = START_Y;
             Font textFont = new Font("textFont", "resources/Roboto-Regular.ttf");
             Font titleFont = new Font("titleFont", "resources/Roboto-Black.ttf");
-            Font buttonFont = new Font("buttonFont", "resources/Roboto-Black.ttf");
 
             SplashKit.DrawText("Pathfinding Visualizer", Color.Black, titleFont, TITLE_FONT_SIZE, currentX, currentY);
             currentY += MARGIN;

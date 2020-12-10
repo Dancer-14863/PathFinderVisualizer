@@ -3,16 +3,31 @@ using SplashKitSDK;
 
 namespace PathFinderVisualizer
 {
+    /// <summary>
+    /// ObstacleDrawer class. Used to handle the obstacle drawing functionality of the grid
+    /// </summary>
     public class ObstacleDrawer
     {
+        /// <summary>
+        /// Constructor for Obstacle drawer class
+        /// </summary>
         public ObstacleDrawer() {}
 
+        /// <summary>
+        /// Obstacle drawn by user option
+        /// </summary>
+        /// <param name="grid">Grid obstacles to be drawn on</param>
+        /// <param name="button">Clicked mouse button</param>
         public void DrawUser(Grid grid, MouseButton button)
         {
             grid.HasBeenClicked(button);
         }
 
-        public void Random(Grid grid)
+        /// <summary>
+        /// Randomly draws obstacles on the grid
+        /// </summary>
+        /// <param name="grid">Grid obstacles to be drawn on</param>
+        public void DrawRandom(Grid grid)
         {
             Random random = new Random();
             foreach(Cell cell in grid.Cells)
@@ -24,7 +39,11 @@ namespace PathFinderVisualizer
             }
         }
 
-        // followed guide from https://www.raywenderlich.com/82-procedural-generation-of-mazes-with-unity
+        /// <summary>
+        /// Draws a random maze on the grid
+        /// followed guide from https://www.raywenderlich.com/82-procedural-generation-of-mazes-with-unity
+        /// </summary>
+        /// <param name="grid">Grid obstacles to be drawn on</param>
         public void DrawMaze(Grid grid)
         {
             Random random = new Random();
